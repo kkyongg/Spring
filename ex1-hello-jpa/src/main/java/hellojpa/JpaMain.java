@@ -64,12 +64,19 @@ public class JpaMain {
             //em.flush() //commit 되기 전 DB에 미리 반영됨(동기화), 영속성 컨텍스트를 비우지 않음
 
             //준영속 상태
-            Member member = em.find(Member.class, 150L); //이미 위에서 저장함
-            member.setName("AAAAA");
+//            Member member = em.find(Member.class, 150L); //이미 위에서 저장함
+//            member.setName("AAAAA");
+//
+////            em.detach(member); //JPA 더이상 관리 x, update 쿼리 안나감
+//            em.clear(); //통째로 지움
+//            Member member2 = em.find(Member.class, 150L); //다시 영속성 컨텍스트 올림 select
 
-//            em.detach(member); //JPA 더이상 관리 x, update 쿼리 안나감
-            em.clear(); //통째로 지움
-            Member member2 = em.find(Member.class, 150L); //다시 영속성 컨텍스트 올림 select
+
+            //기본 키 매핑
+            Member member = new Member();
+            member.setUsername("C");
+
+            em.persist(member);
 
             tx.commit(); //이때 DB에 저장
         } catch (Exception e) {
